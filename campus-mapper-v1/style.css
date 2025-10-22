@@ -1,0 +1,331 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    background: #f4f6f9;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background: #2a9d8f;
+    color: white;
+    padding: 12px 20px;
+    display: grid;
+    grid-template-columns: 1fr auto 80px;
+    align-items: center;
+    position: relative;
+}
+
+.site-title {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 700;
+    color: #fff;
+}
+
+#headerLogo {
+    width: 110px;
+    height: auto;
+    justify-self: center;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.06);
+    padding: 6px;
+}
+
+.admin-btn {
+    justify-self: end;
+    background: white;
+    color: #2a9d8f;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.admin-btn:hover {
+    background: #e0f2f1
+}
+
+.container {
+    max-width: 900px;
+    margin: 30px auto;
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+}
+
+input[type="text"],
+input[type="password"],
+select,
+button {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+button {
+    background: #2a9d8f;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #21867a;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+table,
+th,
+td {
+    border: 1px solid #ccc;
+}
+
+th,
+td {
+    padding: 10px;
+    text-align: center;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: flex-start;
+    overflow: auto;
+    padding-top: 40px;
+}
+
+.modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 1100px;
+    max-width: 98%;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    max-height: 80vh;
+    overflow: auto;
+}
+
+.close {
+    position: absolute;
+    right: 12px;
+    top: 8px;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+h2,
+h3 {
+    margin-top: 0;
+}
+
+#adminPanelContent {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+#adminPanelContent>div {
+    flex: 1;
+    background: #f9f9f9;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.department-buttons {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 12px;
+    margin-top: 12px;
+}
+
+.department-buttons button {
+    display: block;
+    background: #ffffff;
+    color: #2a9d8f;
+    border: 1px solid #d0eae6;
+    padding: 12px 14px;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+    text-align: center;
+    font-weight: 600;
+}
+
+.department-buttons button:hover {
+    background: #f0fbfa
+}
+
+/* Tabs for admin panel */
+.tab-buttons {
+    display: flex;
+    gap: 10px;
+    margin: 10px 0 15px 0
+}
+
+.tab-buttons button {
+    flex: 1;
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    background: #fff;
+    color: #333;
+    cursor: pointer
+}
+
+.tab-buttons button.active {
+    background: #2a9d8f;
+    color: #fff;
+    border-color: #2a9d8f
+}
+
+.tab-panel {
+    background: #fff;
+    padding: 10px;
+    border-radius: 6px
+}
+
+/* Make the admin view table scrollable within modal without changing table display type */
+#adminView .table-wrapper {
+    max-height: 50vh;
+    overflow: auto
+}
+
+#adminView .table-wrapper {
+    overflow: auto;
+    overflow-x: auto
+}
+
+#adminView table {
+    min-width: 1000px;
+    width: auto;
+    border-collapse: collapse;
+    table-layout: auto
+}
+
+#adminView th,
+#adminView td {
+    word-wrap: break-word;
+    overflow-wrap: break-word
+}
+
+/* Fallback & header/admin overrides */
+.container button {
+    width: 100%;
+}
+
+#headerLogoFallback {
+    display: inline-block;
+    color: #fff;
+    font-weight: 800;
+    background: rgba(255, 255, 255, 0.04);
+    padding: 6px 10px;
+    border-radius: 6px
+}
+
+.admin-btn {
+    width: auto;
+    min-width: 56px
+}
+
+/* responsive: on small screens make modal full width and table scroll horizontally */
+@media (max-width: 900px) {
+    .modal-content {
+        width: 95%;
+        max-width: 95%
+    }
+
+    #adminView table {
+        min-width: 800px
+    }
+}
+
+/* Vertical stacked result cards */
+.results-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 12px;
+}
+
+.result-card {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    padding: 12px;
+    border-radius: 8px;
+    background: #ffffff;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.04);
+    border: 1px solid #e6ecea;
+}
+
+.result-card .left {
+    min-width: 72px;
+    font-weight: 700;
+    text-align: center;
+}
+
+.result-card .meta {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 8px;
+}
+
+.result-card .meta .item {
+    font-size: 0.95rem;
+    color: #333;
+}
+
+.result-card .tags {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+}
+
+
+/* clickable card hover */
+.result-card {
+    cursor: pointer;
+}
+
+.result-card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transform: translateY(-2px);
+    transition: all 120ms ease;
+}
+
+#resultsLoading {
+    font-size: 0.95rem
+}
+
+#resultsMessage {
+    font-size: 0.95rem
+}
+
+.pill {
+    padding: 4px 8px;
+    background: #f0fbfa;
+    color: #2a9d8f;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 0.85rem
+}

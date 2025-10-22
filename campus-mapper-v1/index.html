@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Campus Mapper</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+	<h1 class="site-title">Campus Mapper</h1>
+		<!-- centered logo: drop a file named `logo.png` in the project root or change the src -->
+		<picture>
+			<img id="headerLogo" src="logo.png" alt="Campus Logo" onerror="this.style.display='none'">
+			<!-- if you don't have a logo.png, the inline fallback below will show -->
+			<span id="headerLogoFallback" aria-hidden="true">MITS</span>
+		</picture>
+	<button class="admin-btn" onclick="openAdminLogin()">Admin</button>
+</header>
+
+<script>
+	// header logo: hide fallback when the external image loads; show fallback if image fails
+	(function(){
+		const logo = document.getElementById('headerLogo');
+		const fallback = document.getElementById('headerLogoFallback');
+		if(!logo) return;
+		// hide fallback until we know the image failed to load
+		if(fallback) fallback.style.display = 'none';
+		logo.onload = function(){ if(fallback) fallback.style.display = 'none'; logo.style.display='inline-block'; };
+		logo.onerror = function(){ if(fallback) fallback.style.display = 'inline-block'; logo.style.display='none'; };
+		// if the image is already cached and complete, trigger onload manually
+		if(logo.complete && logo.naturalWidth){ if(fallback) fallback.style.display = 'none'; }
+	})();
+</script>
+
+<div class="container">
+<h2>Search Rooms / Labs</h2>
+<input type="text" id="search" placeholder="Enter room, department, or class">
+<button onclick="search()">Search</button>
+
+<div class="department-buttons">
+<button onclick="showDept('CSE')">CSE</button>
+<button onclick="showDept('CE')">CE</button>
+<button onclick="showDept('MECH')">MECH</button>
+<button onclick="showDept('EEE')">EEE</button>
+<button onclick="showDept('ECE')">ECE</button>
+</div>
+
+<div id="resultsSection" style="display:none;">
+<h3>Search Results</h3>
+	<div id="resultsLoading" style="display:none; margin:8px 0; color:#2a9d8f; font-weight:600">Loading...</div>
+	<div id="resultsMessage" style="display:none; margin:8px 0; color:#c0392b; font-weight:600"></div>
+	<!-- card-based results (preferred) -->
+	<div id="resultsList" class="results-list" style="display:none;"></div>
+	<!-- table fallback for wider admin-style views -->
+	<table id="resultsTable" style="display:none;">
+		<thead><tr><th>Name</th><th>Block</th><th>Floor</th><th>Class</th><th>Faculty</th></tr></thead>
+		<tbody></tbody>
+	</table>
+</div>
+</div>
+
+<!-- Room detail modal (re-uses modal styles) -->
+<div id="roomModal" class="modal">
+	<div class="modal-content">
+		<span class="close" onclick="closeRoomModal()">&times;</span>
+		<h2 id="roomModalTitle">Room</h2>
+		<div id="roomModalBody">
+			<!-- populated by JS -->
+		</div>
+		<div style="margin-top:12px; text-align:right">
+			<button onclick="closeRoomModal()">Close</button>
+		</div>
+	</div>
+</div>
+
+<!-- Admin Login -->
+<div id="adminModal" class="modal">
+<div class="modal-content">
+<span class="close" onclick="closeAdminLogin()">&times;</span>
+<h2>Admin Login</h2>
+<div id="loginMessage" style="color:red;"></div>
+<input type="text" id="username" placeholder="Username">
+<input type="password" id="password" placeholder="Password">
+<button onclick="login()">Login</button>
+</div>
+</div>
+
+<!-- Admin Panel -->
+<div id="adminPanel" class="modal">
+	<div class="modal-content">
+		<span class="close" onclick="closeAdminPanel()">&times;</span>
+		<h2>Admin Panel</h2>
+
+		<div class="tab-buttons">
+			<button id="tabAddBtn" class="active" onclick="showAdminTab('add')">Add Room</button>
+			<button id="tabViewBtn" onclick="showAdminTab('view')">View Rooms</button>
+		</div>
+
+		<div id="adminPanelContent">
+			<div id="adminAdd" class="tab-panel">
+				<h3>Add Room / Lab</h3>
+				<input type="text" id="room_name" placeholder="Room / Lab Name">
+				<select id="block_select"><option value="">Select Block</option></select>
+				<input type="text" id="block" placeholder="Block" style="display:none">
+				<input type="text" id="floor" placeholder="Floor">
+				<select id="department_select"><option value="">Select Department</option></select>
+				<input type="text" id="department" placeholder="Department" style="display:none">
+				<input type="text" id="class_name" placeholder="Class (optional)">
+				<input type="text" id="faculty_name" placeholder="Faculty Name(s)">
+				<select id="type">
+					<option value="Room">Room</option>
+					<option value="Lab">Lab</option>
+				</select>
+				<button onclick="addRoom()">Add Room / Lab</button>
+			</div>
+
+			<div id="adminView" class="tab-panel" style="display:none;">
+								<h3>View All Rooms / Labs</h3>
+								<div class="table-wrapper">
+									<table id="roomsTable">
+										<thead><tr><th>ID</th><th>Name</th><th>Block</th><th>Floor</th><th>Dept</th><th>Class</th><th>Type</th><th>Faculty</th><th>Action</th></tr></thead>
+										<tbody></tbody>
+									</table>
+								</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script src="script.js"></script>
+</body>
+</html>

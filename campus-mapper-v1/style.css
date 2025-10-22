@@ -266,6 +266,42 @@ h3 {
     margin-top: 12px;
 }
 
+/* Results header row */
+.results-header {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    padding: 10px 12px;
+    background: #e8f4f2;
+    border-radius: 6px;
+    margin-bottom: 8px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    color: #2a9d8f;
+}
+
+.results-header .header-left {
+    min-width: 72px;
+    text-align: center;
+}
+
+.results-header .header-meta {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 8px;
+}
+
+.results-header .header-meta .header-item {
+    font-size: 0.9rem;
+    text-align: left;
+}
+
+.results-header .header-dept {
+    min-width: 100px;
+    text-align: center;
+}
+
 .result-card {
     display: flex;
     gap: 12px;

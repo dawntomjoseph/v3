@@ -137,10 +137,12 @@ function search() {
     const message = document.getElementById('resultsMessage');
     const list = document.getElementById('resultsList');
     const table = document.getElementById('resultsTable');
+    const header = document.getElementById('resultsHeader');
     // ui state
     message.style.display = 'none';
     loading.style.display = 'block';
     list.innerHTML = '';
+    if (header) header.style.display = 'none';
     fetch(`http://127.0.0.1:5000/search?q=${encodeURIComponent(q)}`)
         .then(res => res.json())
         .then(data => {
@@ -149,6 +151,7 @@ function search() {
                 document.getElementById('resultsSection').style.display = 'block';
                 table.style.display = 'none';
                 list.style.display = 'none';
+                if (header) header.style.display = 'none';
                 message.innerText = 'No results found';
                 message.style.display = 'block';
                 return;
@@ -156,6 +159,7 @@ function search() {
             document.getElementById('resultsSection').style.display = 'block';
             list.style.display = 'block';
             table.style.display = 'none';
+            if (header) header.style.display = 'flex';
             data.forEach(r => {
                 const blockLabel = r.block_name || r.block || '';
                 const deptLabel = r.department_name || r.department || '';
@@ -186,10 +190,12 @@ function showDept(dept) {
     fetch(`http://127.0.0.1:5000/department/${dept}`).then(res => res.json()).then(data => {
         const list = document.getElementById('resultsList');
         const table = document.getElementById('resultsTable');
+        const header = document.getElementById('resultsHeader');
         list.innerHTML = '';
         document.getElementById('resultsSection').style.display = 'block';
         list.style.display = 'block';
         table.style.display = 'none';
+        if (header) header.style.display = 'flex';
         data.forEach(r => {
             const blockLabel = r.block_name || r.block || '';
             const deptLabel = r.department_name || r.department || '';
@@ -231,11 +237,12 @@ document.addEventListener('keydown', function (e) {
     }
 });
 
-// initialize: populate selects and run an initial search so results are visible on page load
+// initialize: populate selects but don't run search automatically
 document.addEventListener('DOMContentLoaded', function () {
     try {
         populateSelects();
-        search();
+        // Don't run search on page load - let user initiate search
+        // search();
     } catch (e) {
         console.error('Initialization error:', e);
     }
